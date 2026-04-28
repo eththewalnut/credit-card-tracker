@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@/lib/generated/prisma/client";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -38,7 +38,7 @@ export async function GET() {
     }
 
     return NextResponse.json(
-      { success: false, message: err.message },
+      { success: false, message: "Something went wrong!" },
       { status: 500 },
     );
   }

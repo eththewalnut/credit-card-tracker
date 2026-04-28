@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClientKnownRequestError } from "@/lib/generated/prisma/runtime/library";
+import { Prisma } from "../generated/prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
@@ -41,10 +41,12 @@ export async function deleteCard(id: string, userId: string) {
     revalidatePath("/cards");
     return { success: true, message: "Card deleted!" };
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    if (err.code === "P2025") {
-      return { success: false, message: err.message };
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return { success: false, message: error.message };
+      }
     }
+
     console.error(error);
   }
 }
@@ -78,8 +80,9 @@ export async function editCard(formData: FormData, userId: string) {
     });
     return { success: true, message: "Card details successfully updated!" };
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    return { success: false, message: err.message };
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return { success: false, message: error.message };
+    }
   }
 }
 

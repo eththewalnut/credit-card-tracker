@@ -1,7 +1,7 @@
 "use server";
 
 import CardForm from "@/components/ui/submit-card-form";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import CardDisplay from "@/components/ui/display-card";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
