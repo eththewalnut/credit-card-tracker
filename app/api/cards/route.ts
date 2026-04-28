@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { PrismaClientKnownRequestError } from "@/lib/generated/prisma/runtime/client";
+import { Prisma } from "@/lib/generated/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -28,13 +28,15 @@ export async function GET() {
 
     return NextResponse.json({ data: cards, success: true }, { status: 200 });
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    if (err.code === "P2025") {
-      return NextResponse.json(
-        { success: false, message: err.message },
-        { status: 404 },
-      );
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json(
+          { success: false, message: error.message },
+          { status: 404 },
+        );
+      }
     }
+
     return NextResponse.json(
       { success: false, message: err.message },
       { status: 500 },

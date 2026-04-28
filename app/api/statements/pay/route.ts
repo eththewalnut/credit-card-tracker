@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { PrismaClientKnownRequestError } from "@/lib/generated/prisma/runtime/client";
+import { Prisma } from "@/lib/generated/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -36,17 +36,13 @@ export async function PUT(req: Request) {
       },
     });
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    console.log(error instanceof PrismaClientKnownRequestError);
-    if (err.code === "P2025") {
-      return NextResponse.json(
-        {
-          error: {
-            message: err.meta?.cause || "Something went wrong!",
-          },
-        },
-        { status: 404, statusText: "Record Not Found" },
-      );
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json(
+          { success: false, error: "No record found" },
+          { status: 404 },
+        );
+      }
     }
 
     return NextResponse.json({ error: error }, { status: 500 });

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { PrismaClientKnownRequestError } from "@/lib/generated/prisma/runtime/library";
+import { Prisma } from "@/lib/generated/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -34,13 +34,15 @@ export async function DELETE(
       { statusText: `${deletedStatement.id} has been deleted` },
     );
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    if (err.code === "P2025") {
-      return NextResponse.json(
-        { success: false, error: "No record found" },
-        { status: 404 },
-      );
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json(
+          { success: false, error: "No record found" },
+          { status: 404 },
+        );
+      }
     }
+
     return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 }
@@ -104,17 +106,13 @@ export async function PUT(
       },
     });
   } catch (error) {
-    const err = error as PrismaClientKnownRequestError;
-    console.log(error instanceof PrismaClientKnownRequestError);
-    if (err.code === "P2025") {
-      return NextResponse.json(
-        {
-          error: {
-            message: err.meta?.cause || "Tanginang eto talaga",
-          },
-        },
-        { status: 404, statusText: "Record Not Found" },
-      );
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        return NextResponse.json(
+          { success: false, error: "No record found" },
+          { status: 404 },
+        );
+      }
     }
 
     return NextResponse.json({ error: error }, { status: 500 });
