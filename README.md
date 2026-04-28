@@ -17,7 +17,7 @@ Users only input a **personal identifier** (e.g., card nickname or label) to tra
 
 The goal of this app is purely to help organize and track due dates and payment status.
 
-## 🛠 Tech Stack
+## 🛠 Tech Stackgi
 
 ### Frontend
 
