@@ -43,10 +43,10 @@ export default function EditCardForm({ cardDetails, userId }: Props) {
 
     startTransition(async () => {
       const response = await editCard(formData, userId);
-      if (response.success === true) {
+      if (response?.success === true) {
         toast.success(response.message);
         router.push("/cards");
-      } else toast.error(response.message);
+      } else toast.error(response?.message || "Something went wrong!");
     });
   }
 
