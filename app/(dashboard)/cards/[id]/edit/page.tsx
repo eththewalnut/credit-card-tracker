@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function EditCardPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const session = await auth.api.getSession({
     headers: await headers(),

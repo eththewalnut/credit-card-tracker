@@ -6,9 +6,9 @@ import { headers } from "next/headers";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -49,9 +49,9 @@ export async function DELETE(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const { id } = params;
+  const { id } = await params;
   const session = await auth.api.getSession({
     headers: await headers(),
   });
