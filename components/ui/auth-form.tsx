@@ -76,7 +76,7 @@ export default function AuthForm() {
       email,
       password,
       confirmPassword,
-      name
+      name,
     );
     if (hasErrors.length > 0) {
       setError(hasErrors);
@@ -176,7 +176,7 @@ export default function AuthForm() {
                   onChange={(e) => {
                     setEmail(e.target.value);
                     setError((prev) =>
-                      prev.filter((error) => !emailErrors.includes(error))
+                      prev.filter((error) => !emailErrors.includes(error)),
                     );
                   }}
                 />
@@ -207,7 +207,7 @@ export default function AuthForm() {
                     onChange={(e) => {
                       setPassword(e.target.value);
                       setError((prev) =>
-                        prev.filter((error) => !passwordErrors.includes(error))
+                        prev.filter((error) => !passwordErrors.includes(error)),
                       );
                     }}
                     required
@@ -239,8 +239,8 @@ export default function AuthForm() {
                           setConfirmPassword(e.target.value);
                           setError((prev) =>
                             prev.filter(
-                              (error) => !passwordErrors.includes(error)
-                            )
+                              (error) => !passwordErrors.includes(error),
+                            ),
                           );
                         }}
                         required
@@ -276,7 +276,7 @@ export default function AuthForm() {
                     onChange={(e) => {
                       setName(e.target.value);
                       setError((prev) =>
-                        prev.filter((error) => !nameErrors.includes(error))
+                        prev.filter((error) => !nameErrors.includes(error)),
                       );
                     }}
                     value={name}
