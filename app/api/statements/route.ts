@@ -68,7 +68,7 @@ export async function GET() {
         paymentStatus: formattedPaymentStatus,
         bankNameWithIdentifier: statement.card.bankNameWithIdentifier,
       };
-
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { card, ...newStatementObject } = formattedStatement;
       return newStatementObject;
     });

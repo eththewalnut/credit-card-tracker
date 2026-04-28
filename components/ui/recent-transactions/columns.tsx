@@ -1,13 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-  SelectItem,
-} from "../select";
 
 export type Statement = {
   id: string;

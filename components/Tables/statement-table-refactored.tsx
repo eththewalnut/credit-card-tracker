@@ -109,6 +109,7 @@ export default function StatementTableNew({
   };
 
   const handleEditStatement = (statementInfo: Statement) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { bankNameWithIdentifier, ...formattedStatement } = statementInfo;
     setStatementToBeUpdated(formattedStatement);
     setIsEditOpen(true);
@@ -263,7 +264,7 @@ export default function StatementTableNew({
                                   billTo: statement.billTo,
                                   cardId: statement.cardId,
                                   bankNameWithIdentifier:
-                                    statement.bankNameWithIdentifier,
+                                    statement.bankNameWithIdentifier!,
                                   dueDate: statement.dueDate,
                                   billFrom: statement.billFrom,
                                 });

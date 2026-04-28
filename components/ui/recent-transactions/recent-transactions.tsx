@@ -45,6 +45,7 @@ async function getStatements(userId: string): Promise<Statement[]> {
       dueDate: dueDateInLocal,
       bankNameWithIdentifier: statement.card.bankNameWithIdentifier,
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { card, ...newStatementObj } = formattedStatement;
     return newStatementObj;
   });
