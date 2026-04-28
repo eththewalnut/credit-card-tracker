@@ -7,7 +7,7 @@ import {
 } from "../card";
 import { DataTable } from "./data-table";
 import { columns, Statement } from "./columns";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 async function getStatements(userId: string): Promise<Statement[]> {
   const statements = await prisma.statement.findMany({

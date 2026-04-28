@@ -1,6 +1,6 @@
 import EditCardForm from "@/components/ui/edit-card-form";
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 export default async function EditCardPage({

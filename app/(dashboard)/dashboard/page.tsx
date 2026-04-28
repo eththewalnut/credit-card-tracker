@@ -1,7 +1,7 @@
 import QuickStatementForm from "@/components/ui/quick-statement-form";
 import RecentTransactions from "@/components/ui/recent-transactions/recent-transactions";
 import SummaryCard from "@/components/ui/summary-card";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

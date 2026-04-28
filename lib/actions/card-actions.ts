@@ -2,7 +2,7 @@
 
 import { PrismaClientKnownRequestError } from "@/lib/generated/prisma/runtime/library";
 import { revalidatePath } from "next/cache";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function createCardDetails(formData: FormData, userId: string) {
   const bank = formData.get("bank") as string;

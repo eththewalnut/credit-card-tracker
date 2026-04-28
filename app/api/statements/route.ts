@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
@@ -11,7 +11,7 @@ export async function GET() {
   if (!session) {
     return NextResponse.json(
       { error: "Unauthorized request" },
-      { status: 401 }
+      { status: 401 },
     );
   }
   try {
@@ -54,7 +54,7 @@ export async function GET() {
       }
 
       const statementDateInLocal = new Date(
-        statement.statementDate
+        statement.statementDate,
       ).toLocaleDateString();
       const dueDateInLocal = new Date(statement.dueDate).toLocaleDateString();
       const paymentDateInLocal = statement.paymentDate
@@ -78,7 +78,7 @@ export async function GET() {
     console.error("Error fetching statements:", error);
     return NextResponse.json(
       { message: "Failed to fetch statements", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -92,7 +92,7 @@ export async function POST(req: Request) {
   if (!session) {
     return NextResponse.json(
       { error: "Unauthorized request" },
-      { status: 401 }
+      { status: 401 },
     );
   }
   try {
@@ -102,7 +102,7 @@ export async function POST(req: Request) {
     ) {
       return NextResponse.json(
         { message: "Invalid input data" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -152,13 +152,13 @@ export async function POST(req: Request) {
         message: "Statements created successfully",
         count: createdStatements.count,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("Error processing statements:", error);
     return NextResponse.json(
       { message: "Failed to process statements", error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
