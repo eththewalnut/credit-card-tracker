@@ -66,7 +66,6 @@ export default function AuthForm() {
     setEmail("");
     setError([]);
     setIsSignIn((prev) => !prev);
-    console.log(name, password, confirmPassword, email);
   };
 
   const handleSignUp = async () => {
@@ -107,6 +106,7 @@ export default function AuthForm() {
     if (validationErrors.length > 0) {
       setError(validationErrors);
       setIsLoading(false);
+      return;
     }
 
     try {
@@ -158,7 +158,7 @@ export default function AuthForm() {
           )}
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -290,27 +290,26 @@ export default function AuthForm() {
 
               <div className="grid gap-2"></div>
             </div>
+            <CardFooter className="flex-col gap-2">
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={error.length > 0}
+              >
+                {isSignIn ? "Login" : "Sign-up"}
+              </Button>
+              <Button
+                variant={"ghost"}
+                className="hover:cursor-pointer"
+                onClick={handleResetForm}
+              >
+                {isSignIn
+                  ? "No account yet? Sign up here"
+                  : "Already have an account? Sign in"}
+              </Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex-col gap-2">
-          <Button
-            type="submit"
-            className="w-full"
-            onClick={handleSubmit}
-            disabled={error.length > 0}
-          >
-            {isSignIn ? "Login" : "Sign-up"}
-          </Button>
-          <Button
-            variant={"ghost"}
-            className="hover:cursor-pointer"
-            onClick={handleResetForm}
-          >
-            {isSignIn
-              ? "No account yet? Sign up here"
-              : "Already have an account? Sign in"}
-          </Button>
-        </CardFooter>
       </Card>
     </>
   );
