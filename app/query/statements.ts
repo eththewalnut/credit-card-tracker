@@ -8,7 +8,7 @@ type StatementFormObject = {
   dueDate: Date | undefined;
   paymentStatus: "Paid" | "Not Paid" | "Sent To Me";
   paymentDate?: Date | null;
-  bankNameWithIdentifier: string;
+  bankNameWithIdentifier?: string;
 };
 
 type StatementReqObject = {
@@ -21,10 +21,25 @@ type StatementReqObject = {
   dueDate: string;
   paymentStatus: "Paid" | "Not Paid" | "Sent To Me";
   paymentDate: string | null;
+  bankNameWithIdentifier?: string;
 };
+
+type StatementTableObject = {
+  id: string;
+  statementDate: string;
+  billFrom: string;
+  amount: number;
+  billTo: string;
+  dueDate: string;
+  cardId: string;
+  paymentStatus: "Paid" | "Not Paid" | "Sent To Me";
+  paymentDate: string | null;
+  bankNameWithIdentifier: string;
+};
+
 export async function getStatements() {
   const response = await fetch("/api/statements");
-  const statements: StatementReqObject[] = await response.json();
+  const statements: StatementTableObject[] = await response.json();
   return statements;
 }
 
