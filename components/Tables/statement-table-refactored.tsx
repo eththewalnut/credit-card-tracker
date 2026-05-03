@@ -27,7 +27,7 @@ type Statement = {
   paymentStatus: "Paid" | "Not Paid" | "Sent To Me";
   paymentDate: string | null;
   amount: number;
-  bankNameWithIdentifier?: string;
+  bankNameWithIdentifier: string;
 };
 
 export default function StatementTableNew({
@@ -41,17 +41,7 @@ export default function StatementTableNew({
   onDeselect: (statementId: StatementUpdate["statementId"]) => void;
   isChecked: string[];
 }) {
-  const [statementToBeUpdated, setStatementToBeUpdated] = useState<Statement>({
-    id: "",
-    statementDate: "",
-    dueDate: "",
-    billFrom: "",
-    billTo: "",
-    cardId: "",
-    paymentStatus: "Not Paid",
-    paymentDate: null,
-    amount: 0,
-  });
+  const [statementToBeUpdated, setStatementToBeUpdated] = useState<string>("");
 
   const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
@@ -103,45 +93,33 @@ export default function StatementTableNew({
     }));
   };
 
-  const handleDeleteStatement = (statementInfo: Statement) => {
-    setStatementToBeUpdated(statementInfo);
+  const handleDeleteStatement = (statementInfoId: string) => {
+    setStatementToBeUpdated(statementInfoId);
     setIsDeleteOpen(true);
   };
 
-  const handleEditStatement = (statementInfo: Statement) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { bankNameWithIdentifier, ...formattedStatement } = statementInfo;
-    setStatementToBeUpdated(formattedStatement);
+  const handleEditStatement = (statementInfoId: string) => {
+    setStatementToBeUpdated(statementInfoId);
     setIsEditOpen(true);
   };
 
   const handleCloseDialog = () => {
     setIsDeleteOpen(false);
     setIsEditOpen(false);
-    setStatementToBeUpdated({
-      id: "",
-      statementDate: "",
-      dueDate: "",
-      billFrom: "",
-      billTo: "",
-      cardId: "",
-      paymentStatus: "Not Paid",
-      paymentDate: null,
-      amount: 0,
-    });
+    setStatementToBeUpdated("");
   };
 
   return (
     <>
       <DeleteDialog
         isOpen={isDeleteOpen}
-        statementInfo={statementToBeUpdated}
+        statementId={statementToBeUpdated}
         onCloseDialog={handleCloseDialog}
       />
       <EditDialog
         isOpen={isEditOpen}
         onCloseDialog={handleCloseDialog}
-        statementInfo={statementToBeUpdated}
+        statementId={statementToBeUpdated}
       />
       <Card className="px-20 w-full">
         <CardHeader>
@@ -284,7 +262,7 @@ export default function StatementTableNew({
                       <TooltipTrigger asChild>
                         <Trash2Icon
                           className="w-5 h-5 cursor-pointer hover:opacity-65"
-                          onClick={() => handleDeleteStatement(statement)}
+                          onClick={() => handleDeleteStatement(statement.id)}
                         />
                       </TooltipTrigger>
                       <TooltipContent>
@@ -295,7 +273,7 @@ export default function StatementTableNew({
                       <TooltipTrigger asChild>
                         <Edit
                           className="w-4 h-5 cursor-pointer hover:opacity-65"
-                          onClick={() => handleEditStatement(statement)}
+                          onClick={() => handleEditStatement(statement.id)}
                         />
                       </TooltipTrigger>
                       <TooltipContent>

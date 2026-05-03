@@ -8,6 +8,7 @@ type StatementFormObject = {
   dueDate: Date | undefined;
   paymentStatus: "Paid" | "Not Paid" | "Sent To Me";
   paymentDate?: Date | null;
+  bankNameWithIdentifier: string;
 };
 
 type StatementReqObject = {
@@ -90,4 +91,16 @@ export async function markStatementsAsPaid({
   }
 
   return response;
+}
+
+export async function getStatement(statementId: string) {
+  const response = await fetch(`/api/statements/${statementId}`);
+  const statement: StatementReqObject = await response.json();
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw error;
+  }
+
+  return statement;
 }
