@@ -17,8 +17,10 @@ export const signUp = async (email: string, password: string, name: string) => {
     return result;
   } catch (error) {
     if (error instanceof APIError) {
+      console.error(error);
       return error;
     }
+    console.error(error);
   }
 };
 
@@ -34,8 +36,10 @@ export const signIn = async (email: string, password: string) => {
     return result;
   } catch (error) {
     if (error instanceof APIError) {
+      console.error(error);
       return error;
     }
+    console.error(error);
   }
 };
 
