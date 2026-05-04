@@ -62,7 +62,7 @@ The goal of this app is purely to help organize and track due dates and payment 
 Clone the repo:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/credit-card-tracker.git
+git clone https://github.com/eththewalnut/credit-card-tracker.git
 cd credit-card-tracker
 ```
 
@@ -70,6 +70,12 @@ Install dependencies:
 
 ```bash
 npm install
+```
+
+Generate Prisma client:
+
+```bash
+npx prisma generate
 ```
 
 Run the development server:
@@ -84,6 +90,11 @@ Open http://localhost:3000 in your browser.
 
 - Make sure to set up your `.env` file before running the app
 - Prisma migrations may be required depending on your setup
+- If you encounter database issues, try running:
+
+  ```bash
+  npx prisma generate
+  ```
 
 ## 📷 Future Improvements
 
