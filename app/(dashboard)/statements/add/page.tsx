@@ -10,8 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import CloseButton from "@/public/icons8-close.svg";
+import { X } from "lucide-react";
 import { toast } from "sonner";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -169,10 +168,11 @@ export default function AddStatementsPage() {
                 <CardAction>
                   {statements.length > 1 && (
                     <Button
-                      className="bg-default hover:bg-default"
+                      variant={"ghost"}
+                      className="hover:cursor-pointer"
                       onClick={() => handleDeleteStatement(index)}
                     >
-                      <Image src={CloseButton} alt="close button" width={20} />
+                      <X />
                     </Button>
                   )}
                 </CardAction>
